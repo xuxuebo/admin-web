@@ -8,7 +8,7 @@
             v-model="deptName"
             clearable
             size="small"
-            placeholder="输入部门名称搜索"
+            placeholder="输入机构名称搜索"
             prefix-icon="el-icon-search"
             class="filter-item"
             @input="getDeptDatas"
@@ -74,13 +74,13 @@
             <el-form-item label="邮箱" prop="email">
               <el-input v-model="form.email" />
             </el-form-item>
-            <el-form-item label="部门" prop="dept.id">
+            <el-form-item label="机构" prop="dept.id">
               <treeselect
                 v-model="form.dept.id"
                 :options="depts"
                 :load-options="loadDepts"
                 style="width: 178px"
-                placeholder="选择部门"
+                placeholder="选择机构"
               />
             </el-form-item>
             <el-form-item label="班级" prop="jobs">
@@ -147,7 +147,7 @@
           <el-table-column prop="gender" label="性别" />
           <el-table-column :show-overflow-tooltip="true" prop="phone" width="100" label="电话" />
           <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="邮箱" />
-          <el-table-column :show-overflow-tooltip="true" prop="dept" label="部门">
+          <el-table-column :show-overflow-tooltip="true" prop="dept" label="机构">
             <template slot-scope="scope">
               <div>{{ scope.row.dept.name }}</div>
             </template>
