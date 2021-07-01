@@ -63,7 +63,7 @@ export default {
         uuid: ''
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', message: '用户名不能为空' }],
+        username: [{ required: true, trigger: 'blur', message: '学工号不能为空' }],
         password: [{ required: true, trigger: 'blur', message: '密码不能为空' }],
         code: [{ required: true, trigger: 'change', message: '验证码不能为空' }]
       },
@@ -89,7 +89,7 @@ export default {
   created() {
     // 获取验证码
     this.getCode()
-    // 获取用户名密码等Cookie
+    // 获取学工号密码等Cookie
     this.getCookie()
     // token 过期提示
     this.point()

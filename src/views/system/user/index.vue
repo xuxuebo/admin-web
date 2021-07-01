@@ -62,13 +62,13 @@
         <!--表单渲染-->
         <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="570px">
           <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="66px">
-            <el-form-item label="用户名" prop="username">
+            <el-form-item label="学工号" prop="username">
               <el-input v-model="form.username" />
             </el-form-item>
             <el-form-item label="电话" prop="phone">
               <el-input v-model.number="form.phone" />
             </el-form-item>
-            <el-form-item label="昵称" prop="nickName">
+            <el-form-item label="用户名" prop="nickName">
               <el-input v-model="form.nickName" />
             </el-form-item>
             <el-form-item label="邮箱" prop="email">
@@ -142,8 +142,8 @@
         <!--表格渲染-->
         <el-table ref="table" v-loading="crud.loading" :data="crud.data" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
           <el-table-column :selectable="checkboxT" type="selection" width="55" />
-          <el-table-column :show-overflow-tooltip="true" prop="username" label="用户名" />
-          <el-table-column :show-overflow-tooltip="true" prop="nickName" label="昵称" />
+          <el-table-column :show-overflow-tooltip="true" prop="username" label="学工号" />
+          <el-table-column :show-overflow-tooltip="true" prop="nickName" label="用户名" />
           <el-table-column prop="gender" label="性别" />
           <el-table-column :show-overflow-tooltip="true" prop="phone" width="100" label="电话" />
           <el-table-column :show-overflow-tooltip="true" width="135" prop="email" label="邮箱" />
@@ -242,11 +242,11 @@ export default {
       ],
       rules: {
         username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { required: true, message: '请输入学工号', trigger: 'blur' },
           { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
         ],
         nickName: [
-          { required: true, message: '请输入用户昵称', trigger: 'blur' },
+          { required: true, message: '请输入用户名', trigger: 'blur' },
           { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
         ],
         email: [

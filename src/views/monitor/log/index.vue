@@ -30,7 +30,7 @@
           </el-form>
         </template>
       </el-table-column>
-      <el-table-column prop="username" label="用户名" />
+      <el-table-column prop="username" label="学工号" />
       <el-table-column prop="requestIp" label="IP" />
       <el-table-column :show-overflow-tooltip="true" prop="address" label="IP来源" />
       <el-table-column prop="description" label="描述" />
