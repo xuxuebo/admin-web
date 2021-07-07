@@ -162,12 +162,15 @@ module.exports = {
       }
     }],
     'padded-blocks': [2, 'never'],
-    "quotes": [0, "single"], //引号类型 `` "" ''
-    'semi': [0, "always"],
-    // 'semi-spacing': [2, {
-    //   'before': false,
-    //   'after': true
-    // }],
+    'quotes': [2, 'single', {
+      'avoidEscape': true,
+      'allowTemplateLiterals': true
+    }],
+    'semi': [2, 'never'],
+    'semi-spacing': [2, {
+      'before': false,
+      'after': true
+    }],
     'space-before-blocks': [2, 'always'],
     'space-before-function-paren': [2, 'never'],
     'space-in-parens': [2, 'never'],
@@ -186,11 +189,10 @@ module.exports = {
     'yield-star-spacing': [2, 'both'],
     'yoda': [2, 'never'],
     'prefer-const': 2,
-    'no-debugger': process.env.NODE_ENV === 'production' ? 1 : 0,
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
     'object-curly-spacing': [2, 'always', {
       objectsInObjects: false
     }],
-    'array-bracket-spacing': [2, 'never'],
-    "eslint-disable-next-line": false
+    'array-bracket-spacing': [2, 'never']
   }
 }

@@ -1,0 +1,108 @@
+/* 弹性布局  */
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+/* 防止元素被挤压变形 */
+.f-shr {
+  flex-shrink: 0;
+}
+
+// 纵轴左右居中
+.just-cen {
+  display: flex;
+  justify-content: center;
+}
+
+// 纵轴左对齐
+.just-left {
+  justify-content: flex-start;
+}
+
+// 纵轴右对齐
+.just-right {
+  justify-content: flex-end;
+}
+
+// 两端均匀分布，左右不留空
+.just-spa {
+  display: flex;
+  justify-content: space-between;
+}
+
+// 两端均匀分布，左右留空
+.just-aro {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* 一行放不下，自动转到下一行 */
+.f-wrap {
+  flex-wrap: wrap;
+}
+
+// 水平方向居中对齐
+.al-cen {
+  display: flex;
+  align-items: center;
+}
+
+.al-baseline {
+  align-items: baseline;
+}
+
+// 从上往下排列
+.f-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.f-1 {
+  flex: 1;
+}
+
+.f-2 {
+  flex: 2;
+}
+
+.f-3 {
+  flex: 3;
+}
+
+.f-4 {
+  flex: 4;
+}
+
+.f-5 {
+  flex: 5;
+}
+
+.f-6 {
+  flex: 6;
+}
+
+.f-7 {
+  flex: 7;
+}
+
+.f-8 {
+  flex: 8;
+}
+
+.f-9 {
+  flex: 9;
+}
+
+.f-10 {
+  flex: 10;
+}
+
+.h_100 {
+  height: 100%;
+}
