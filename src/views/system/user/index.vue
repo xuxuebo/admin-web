@@ -83,7 +83,7 @@
                 placeholder="选择机构"
               />
             </el-form-item>
-            <el-form-item label="班级" prop="jobs">
+            <el-form-item label="岗位" prop="jobs">
               <el-select
                 v-model="jobDatas"
                 style="width: 178px"
@@ -312,7 +312,7 @@ export default {
       this.jobDatas = []
       this.roleDatas = []
     },
-    // 初始化编辑时候的角色与班级
+    // 初始化编辑时候的角色与岗位
     [CRUD.HOOK.beforeToEdit](crud, form) {
       this.getJobs(this.form.dept.id)
       this.jobDatas = []
@@ -439,7 +439,7 @@ export default {
         this.roles = res
       }).catch(() => { })
     },
-    // 获取弹窗内班级数据
+    // 获取弹窗内岗位数据
     getJobs() {
       getAllJob().then(res => {
         this.jobs = res.content
