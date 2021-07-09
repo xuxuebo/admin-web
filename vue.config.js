@@ -33,6 +33,13 @@ module.exports = {
           '^/api': 'api'
         }
       },
+      '/skl': {
+        target: 'http://192.168.70.5/api',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/skl': ''
+        }
+      },
       '/auth': {
         target: process.env.VUE_APP_BASE_API,
         changeOrigin: true,

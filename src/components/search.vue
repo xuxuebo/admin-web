@@ -12,15 +12,16 @@
       end-placeholder="结束日期"
       :picker-options="pickerOptions"
       value-format="yyyy-MM-dd"
+      :clearable="false"
       style="margin:0 10px 20px 0"
     >
     </el-date-picker>
     <el-select v-model="screen.college" clearable placeholder="请选择学院" style="margin:0 10px 20px 0">
       <el-option
         v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
+        :key="item.UNITCODE"
+        :label="item.UNITNAME"
+        :value="item.UNITCODE"
       >
       </el-option>
     </el-select>
@@ -35,11 +36,12 @@
     </el-input>
     <el-button type="primary" icon="el-icon-search" size="mini" class="filter-item" style="margin:0 10px 20px 0" @click="refreshData()">查询</el-button>
     <el-button type="warning" icon="el-icon-refresh-left" size="mini" style="margin:0 10px 20px 0" @click="resetInfo()">重置</el-button>
-    <el-button type="success" icon="el-icon-download" size="mini" style="margin:0 0 20px 0">导出</el-button>
+    <el-button type="success" icon="el-icon-download" size="mini" style="margin:0 0 20px 0" @click="exportList()">导出</el-button>
   </div>
 </template>
 
 <script>
+import api from "@/api/index";
 export default {
   name: "",
   components: {},
@@ -49,19 +51,10 @@ export default {
         date: "", // 日期
         college: "", // 学院
         stuNo: "", // 学号
-        calss: "", // 班级
+        class: "", // 班级
         grade: "" // 年级
       },
-      options: [
-        {
-          value: "选项1",
-          label: "黄金糕"
-        },
-        {
-          value: "选项2",
-          label: "双皮奶"
-        }
-      ],
+      options: [],
       pickerOptions: {
         shortcuts: [
           {
@@ -90,18 +83,75 @@ export default {
               start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
               picker.$emit("pick", [start, end]);
             }
+          },
+          {
+            text: "最近半年",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 180);
+              picker.$emit("pick", [start, end]);
+            }
+          },
+          {
+            text: "最近一年",
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
+              picker.$emit("pick", [start, end]);
+            }
           }
+          // {
+          //   text: "最近三年",
+          //   onClick(picker) {
+          //     const end = new Date();
+          //     const start = new Date();
+          //     start.setTime(start.getTime() - 3600 * 1000 * 24 * 1095);
+          //     picker.$emit("pick", [start, end]);
+          //   }
+          // }
+          // {
+          //   text: "最近四年",
+          //   onClick(picker) {
+          //     const end = new Date();
+          //     const start = new Date();
+          //     start.setTime(start.getTime() - 3600 * 1000 * 24 * 1460);
+          //     picker.$emit("pick", [start, end]);
+          //   }
+          // }
         ]
       }
     };
   },
   computed: {},
   watch: {},
-  mounted() {},
+  mounted() {
+    this.getTime()
+    this._getCollege()
+  },
   methods: {
     // 刷新接口
     refreshData() {
       this.$emit('updateSearch', this.screen)
+    },
+    // 导出列表
+    exportList() {
+      this.$emit('exportList')
+    },
+    // 获取最近一个月时间
+    getTime() {
+      const end = new Date();
+      const start = new Date();
+      start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+      this.screen.date = [this.$moment(start).format("YYYY-MM-DD"), this.$moment(end).format("YYYY-MM-DD")]
+      this.refreshData()
+    },
+    // 获取学院列表
+    _getCollege() {
+      api.getCollege().then(res => {
+        this.options = res || []
+      })
     },
     // 重置
     resetInfo() {
@@ -109,9 +159,10 @@ export default {
         date: "", // 日期
         college: "", // 学院
         stuNo: "", // 学号
-        calss: "", // 班级
+        class: "", // 班级
         grade: "" // 年级
       }
+      this.getTime()
       this.refreshData()
     }
   }

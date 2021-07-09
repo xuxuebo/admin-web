@@ -40,6 +40,9 @@ Vue.use(Element, {
   size: Cookies.get('size') || 'small' // set element-ui default size
 })
 
+const moment = require("moment");
+Vue.prototype.$moment = moment;
+
 Vue.config.productionTip = false
 
 new Vue({

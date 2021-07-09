@@ -77,3 +77,20 @@
 .el-range-editor.el-input__inner {
   display: inline-flex !important;
 }
+
+// 分页按钮选中项颜色
+.el-pagination.is-background .el-pager li:not(.disabled).active {
+  background-color: #30B08F;
+}
+.el-date-table td.start-date span, .el-date-table td.end-date span{
+  background-color: #30B08F;
+}
+// .el-date-table td.today span{
+//   color: #30B08F;
+// }
+// .el-date-table td.available:hover{
+//   color: #30B08F;
+// }
+// .el-picker-panel__shortcut:hover{
+//   color: #30B08F;
+// }
