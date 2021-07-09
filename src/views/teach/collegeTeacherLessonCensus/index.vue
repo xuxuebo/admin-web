@@ -1,8 +1,8 @@
-<!-- 学院教学课程考勤统计 -->
+<!-- 学院教师授课考勤统计 -->
 <!-- author: 张小辉 -->
 <template>
   <div class="app-container">
-    学院教学课程考勤统计
+    学院教师授课考勤统计
   </div>
 </template>
 
