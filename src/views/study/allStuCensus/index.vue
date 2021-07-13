@@ -2,7 +2,7 @@
 <!-- author: 张小辉 -->
 <template>
   <div v-loading="loading" class="app-content">
-    <search @updateSearch="updateSearch" @exportList="exportList"></search>
+    <search college="true" stu="true" @updateSearch="updateSearch" @exportList="exportList"></search>
     <el-table
       :data="tableData"
       stripe
@@ -87,7 +87,11 @@ export default {
         college: "", // 学院
         stuNo: "", // 学号
         class: "", // 班级
-        grade: "" // 年级
+        grade: "", // 年级
+        workTime: "", // 考勤时间
+        status: "", // 考勤状态
+        courseId: "", // 课程号
+        mode: "" // 模式
       },
       total: 0,
       pageNum: 1,
