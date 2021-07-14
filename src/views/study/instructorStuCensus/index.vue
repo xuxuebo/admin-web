@@ -2,7 +2,15 @@
 <!-- author: 张小辉 -->
 <template>
   <div v-loading="loading" class="app-content">
-    <search stu="true" @updateSearch="updateSearch" @exportList="exportList"></search>
+    <search
+      college="true"
+      grade="true"
+      stu="true"
+      classno="true"
+      exportshow="true"
+      @updateSearch="updateSearch"
+      @exportList="exportList"
+    ></search>
     <el-table
       :data="tableData"
       stripe

@@ -6,6 +6,7 @@
       college="true"
       teach="true"
       lesson="true"
+      exportshow="true"
       @updateSearch="updateSearch"
       @exportList="exportList"
     ></search>

@@ -12,7 +12,7 @@ export function getList(params) {
 export function exportList(params) {
   return request({
     url:
-      "sklcheck-in-student-detail/unit-export" +
+      "skl/check-in-student-detail/unit-export" +
       "?" +
       qs.stringify(params, { indices: false }),
     method: "get",

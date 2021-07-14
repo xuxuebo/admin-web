@@ -28,7 +28,7 @@
     <el-input v-if="stu" v-model="screen.stuNo" clearable placeholder="请输入内容" style="max-width:230px;margin:0 10px 20px 0">
       <template slot="prepend">学号</template>
     </el-input>
-    <el-input v-if="classNo" v-model="screen.class" clearable placeholder="请输入内容" style="max-width:230px;margin:0 10px 20px 0">
+    <el-input v-if="classno" v-model="screen.class" clearable placeholder="请输入内容" style="max-width:230px;margin:0 10px 20px 0">
       <template slot="prepend">班级</template>
     </el-input>
     <el-input v-if="grade" v-model="screen.grade" clearable placeholder="请输入内容" style="max-width:230px;margin:0 10px 20px 0">
@@ -51,7 +51,7 @@
     </el-select>
     <el-button type="primary" icon="el-icon-search" size="mini" class="filter-item" style="margin:0 10px 20px 0" @click="refreshData()">查询</el-button>
     <el-button type="warning" icon="el-icon-refresh-left" size="mini" style="margin:0 10px 20px 0" @click="resetInfo()">重置</el-button>
-    <el-button type="success" icon="el-icon-download" size="mini" style="margin:0 0 20px 0" @click="exportList()">导出</el-button>
+    <el-button v-if="exportshow" type="success" icon="el-icon-download" size="mini" style="margin:0 0 20px 0" @click="exportList()">导出</el-button>
   </div>
 </template>
 
@@ -71,7 +71,7 @@ export default {
       type: String,
       default: ''
     },
-    classNo: {
+    classno: {
       type: String,
       default: ''
     },
@@ -84,6 +84,10 @@ export default {
       default: ''
     },
     lesson: {
+      type: String,
+      default: ''
+    },
+    exportshow: {
       type: String,
       default: ''
     }

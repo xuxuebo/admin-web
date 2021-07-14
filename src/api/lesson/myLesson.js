@@ -1,10 +1,10 @@
-// 学院教学课程统计
+// 授课课程
 import request from "@/utils/request";
 import qs from "qs";
 
 export function getList(params) {
   return request({
-    url: "skl/stat/teacher/school",
+    url: "skl/course",
     method: "get",
     params
   });
@@ -12,7 +12,7 @@ export function getList(params) {
 export function exportList(params) {
   return request({
     url:
-      "skl/stat/teacher/school-export" +
+      "skl/stat/usage/school-export" +
       "?" +
       qs.stringify(params, { indices: false }),
     method: "get",
