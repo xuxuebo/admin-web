@@ -22,12 +22,12 @@
       <el-table-column prop="courseCode" label="选课号" min-width="100" />
       <el-table-column prop="courseName" label="课程名称" min-width="100" />
       <el-table-column prop="teacher" label="任课教师" min-width="100" />
-      <el-table-column label="操作" align="center" min-width="300">
-        <template>
+      <el-table-column label="导出" align="center" min-width="200">
+        <template slot-scope="scope">
           <div>
-            <el-button icon="el-icon-download" size="mini" type="success" plain>课堂考勤</el-button>
-            <el-button icon="el-icon-download" size="mini" type="success" plain>考勤管理</el-button>
-            <el-button icon="el-icon-download" size="mini" type="success" plain>正方表格</el-button>
+            <el-button size="mini" type="success" plain @click.native="exportExcel(scope.row.courseId,1)">课堂考勤</el-button>
+            <el-button size="mini" type="success" plain @click.native="exportExcel(scope.row.courseId,2)">考勤管理</el-button>
+            <el-button size="mini" type="success" plain @click.native="exportExcel(scope.row.courseId,3)">正方表格</el-button>
           </div>
         </template>
       </el-table-column>
@@ -48,6 +48,7 @@
 
 <script>
 import api from "@/api/lesson/myLesson";
+import download from "@/api/index";
 import { downLoadFile } from "@/utils/file";
 import search from "@/components/search.vue";
 export default {
@@ -116,6 +117,15 @@ export default {
           pageNum: this.pageNum,
           pageSize: this.pageSize
         })
+        .then(res => {
+          downLoadFile(res);
+        });
+    },
+    exportExcel(id, mode) {
+      download.exportFile({
+        courseId: id,
+        mode: mode
+      })
         .then(res => {
           downLoadFile(res);
         });

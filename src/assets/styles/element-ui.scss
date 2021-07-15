@@ -109,6 +109,14 @@
   background-color: #30b08f;
   border-color: #30b08f;
 }
-.el-button--success.is-plain{
+.el-button--success.is-plain {
+  color: #777;
+  background-color: #fff;
+  border-color: #ddd;
+}
+.el-button--success.is-plain:hover,
+.el-button--success.is-plain:focus {
   color: #30b08f;
+  background-color: #ffffff;
+  border-color: #30b08f;
 }

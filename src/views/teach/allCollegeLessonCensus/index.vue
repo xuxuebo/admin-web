@@ -56,9 +56,13 @@
       />
       <el-table-column prop="leaveCount" label="请假次数" min-width="60" />
       <el-table-column prop="rightCount" label="正常次数" min-width="60" />
-      <el-table-column prop="absentTimeCount" label="导出" min-width="60">
-        <template>
-          <el-button type="success" icon="el-icon-download" size="mini" plain circle></el-button>
+      <el-table-column label="导出" align="center" min-width="200">
+        <template slot-scope="scope">
+          <div>
+            <el-button size="mini" type="success" plain @click.native="exportExcel(scope.row.courseId,1)">课堂考勤</el-button>
+            <el-button size="mini" type="success" plain @click.native="exportExcel(scope.row.courseId,2)">考勤管理</el-button>
+            <el-button size="mini" type="success" plain @click.native="exportExcel(scope.row.courseId,3)">正方表格</el-button>
+          </div>
         </template>
       </el-table-column>
     </el-table>
@@ -78,6 +82,7 @@
 
 <script>
 import api from "@/api/teach/allCollegeLessonCensus";
+import download from "@/api/index";
 import { downLoadFile } from "@/utils/file";
 import search from "@/components/search.vue";
 export default {
@@ -146,6 +151,15 @@ export default {
           pageNum: this.pageNum,
           pageSize: this.pageSize
         })
+        .then(res => {
+          downLoadFile(res);
+        });
+    },
+    exportExcel(id, mode) {
+      download.exportFile({
+        courseId: id,
+        mode: mode
+      })
         .then(res => {
           downLoadFile(res);
         });
