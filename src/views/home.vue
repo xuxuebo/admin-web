@@ -54,6 +54,7 @@ export default {
   .title {
     font-size: 18px;
     font-weight: bold;
+    text-align: left;
   }
   .mt_30 {
     margin-top: 30px;
