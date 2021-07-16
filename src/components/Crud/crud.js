@@ -138,7 +138,12 @@ function CRUD(options) {
             table.store.states.lazyTreeNodeMap = {}
           }
           crud.page.total = data.totalElements
-          crud.data = data.content
+          // 任务调度单独取值
+          if (crud.url === "skl/jobs") {
+            crud.data = data.list
+          } else {
+            crud.data = data.content
+          }
           crud.resetDataStatus()
           // time 毫秒后显示表格
           setTimeout(() => {
