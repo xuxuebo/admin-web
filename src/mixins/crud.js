@@ -59,7 +59,15 @@ export default {
         // 请求数据
         initData(this.url, this.getQueryParame()).then(data => {
           this.total = data.totalElements
-          this.data = data.content
+          // 任务调度执行日志单独取值
+          if (this.url === "skl/jobs/logs") {
+            this.data = data.list
+            this.total = data.total
+          } else {
+            this.data = data.content
+            this.total = data.totalElements
+          }
+          // this.data = data.content
           // time 毫秒后显示表格
           setTimeout(() => {
             this.loading = false
@@ -79,6 +87,8 @@ export default {
         page: this.page,
         size: this.size,
         sort: this.sort,
+        pageSize: 10,
+        pageNum: this.page + 1,
         ...this.query,
         ...this.params
       }
