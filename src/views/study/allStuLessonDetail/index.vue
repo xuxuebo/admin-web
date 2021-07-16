@@ -25,13 +25,13 @@
       }"
     >
       <el-table-column
-        prop="studentId"
+        prop="userId"
         label="学号"
         show-overflow-tooltip
         min-width="80"
       />
       <el-table-column
-        prop="studentName"
+        prop="name"
         label="姓名"
         show-overflow-tooltip
         min-width="80"
@@ -40,50 +40,30 @@
         prop="unitName"
         label="学院"
         show-overflow-tooltip
-        min-width="120"
+        min-width="100"
       />
       <el-table-column
         prop="courseName"
         label="课程"
         show-overflow-tooltip
-        min-width="100"
+        min-width="120"
       />
       <el-table-column
-        prop="classRoom"
+        prop="classNo"
         label="班级"
         show-overflow-tooltip
         min-width="80"
       />
+      <el-table-column prop="absentCount" label="旷课次数" min-width="60" />
+      <el-table-column prop="lateCount" label="迟到次数" min-width="60" />
       <el-table-column
-        prop="classRoom"
-        label="旷课次数"
-        show-overflow-tooltip
-        min-width="80"
-      />
-      <el-table-column
-        prop="classRoom"
+        prop="absentLeaveCount"
         label="早退次数"
-        show-overflow-tooltip
-        min-width="80"
+        min-width="60"
       />
-      <el-table-column
-        prop="classRoom"
-        label="请假次数"
-        show-overflow-tooltip
-        min-width="80"
-      />
-      <el-table-column
-        prop="classRoom"
-        label="正常次数"
-        show-overflow-tooltip
-        min-width="80"
-      />
-      <el-table-column
-        prop="classRoom"
-        label="旷课学时预警"
-        show-overflow-tooltip
-        min-width="80"
-      />
+      <el-table-column prop="leaveCount" label="请假次数" min-width="60" />
+      <el-table-column prop="rightCount" label="正常次数" min-width="60" />
+      <el-table-column prop="absentTimeCount" label="旷课课时" min-width="60" />
     </el-table>
     <el-pagination
       class="page_button"
