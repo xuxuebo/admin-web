@@ -410,11 +410,12 @@ export default {
     },
     // 切换部门
     handleNodeClick(data) {
-      if (data.pid !== 0) {
-        this.query.deptId = null
-      } else {
-        this.query.deptId = data.id
-      }
+      this.query.deptId = data.id || undefined
+      // if (data.pid !== 0) {
+      //   this.query.deptId = null
+      // } else {
+      //   this.query.deptId = data.id
+      // }
       this.crud.toQuery()
     },
     // 改变状态
