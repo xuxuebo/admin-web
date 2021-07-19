@@ -24,10 +24,10 @@
       }"
     >
       <el-table-column
-        prop="courseId"
+        prop="courseCode"
         label="选课号"
         show-overflow-tooltip
-        min-width="80"
+        min-width="120"
       />
       <el-table-column
         prop="courseName"
