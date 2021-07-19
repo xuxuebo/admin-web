@@ -65,13 +65,13 @@
             <el-form-item label="学工号" prop="username">
               <el-input v-model="form.username" />
             </el-form-item>
-            <el-form-item label="电话" prop="phone">
+            <el-form-item label="电话">
               <el-input v-model.number="form.phone" />
             </el-form-item>
             <el-form-item label="用户名" prop="nickName">
               <el-input v-model="form.nickName" />
             </el-form-item>
-            <el-form-item label="邮箱" prop="email">
+            <el-form-item label="邮箱">
               <el-input v-model="form.email" />
             </el-form-item>
             <el-form-item label="机构" prop="dept.id">
@@ -189,7 +189,7 @@
 
 <script>
 import crudUser from '@/api/system/user'
-import { isvalidPhone } from '@/utils/validate'
+// import { isvalidPhone } from '@/utils/validate'
 import { getDepts, getDeptSuperior } from '@/api/system/dept'
 import { getAll, getLevel } from '@/api/system/role'
 import { getAllJob } from '@/api/system/job'
@@ -217,15 +217,15 @@ export default {
   dicts: ['user_status'],
   data() {
     // 自定义验证
-    const validPhone = (rule, value, callback) => {
-      if (!value) {
-        callback(new Error('请输入电话号码'))
-      } else if (!isvalidPhone(value)) {
-        callback(new Error('请输入正确的11位手机号码'))
-      } else {
-        callback()
-      }
-    };
+    // const validPhone = (rule, value, callback) => {
+    //   if (!value) {
+    //     callback(new Error('请输入电话号码'))
+    //   } else if (!isvalidPhone(value)) {
+    //     callback(new Error('请输入正确的11位手机号码'))
+    //   } else {
+    //     callback()
+    //   }
+    // };
     const validUsername = (rule, value, callback) => {
       const reg = /^[A-Za-z0-9]+$/;
       if (!reg.test(value)) {
@@ -257,14 +257,14 @@ export default {
         nickName: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
           { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
-        ],
-        email: [
-          { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-          { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
-        ],
-        phone: [
-          { required: true, trigger: 'blur', validator: validPhone }
         ]
+        // email: [
+        //   { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+        //   { type: 'email', message: '请输入正确的邮箱地址', trigger: 'blur' }
+        // ],
+        // phone: [
+        //   { required: true, trigger: 'blur', validator: validPhone }
+        // ]
       }
     }
   },
