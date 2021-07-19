@@ -139,7 +139,7 @@
           <udOperation
             :data="scope.row"
             :permission="permission"
-            msg="确定删除吗,如果存在下级节点则一并删除，此操作不能撤销！"
+            msg="确定删除吗？如果存在下级节点则一并删除，此操作不能撤销！"
           />
         </template>
       </el-table-column>

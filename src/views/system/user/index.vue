@@ -63,7 +63,7 @@
         <el-dialog append-to-body :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="570px">
           <el-form ref="form" :inline="true" :model="form" :rules="rules" size="small" label-width="66px">
             <el-form-item label="学工号" prop="username">
-              <el-input v-model="form.username" />
+              <el-input v-model="form.username" clearable />
             </el-form-item>
             <el-form-item label="电话" prop="phone">
               <el-input v-model.number="form.phone" />
@@ -225,7 +225,15 @@ export default {
       } else {
         callback()
       }
-    }
+    };
+    const validUsername = (rule, value, callback) => {
+      const reg = /^[A-Za-z0-9]+$/;
+      if (!reg.test(value)) {
+        callback(new Error("只允许填写数字、字母"));
+      } else {
+        callback();
+      }
+    };
     return {
       height: document.documentElement.clientHeight - 180 + 'px;',
       deptName: '', depts: [], deptDatas: [], jobs: [], level: 3, roles: [],
@@ -243,7 +251,8 @@ export default {
       rules: {
         username: [
           { required: true, message: '请输入学工号', trigger: 'blur' },
-          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' }
+          { min: 2, max: 20, message: '长度在 2 到 20 个字符', trigger: 'blur' },
+          { validator: validUsername, trigger: 'change' }
         ],
         nickName: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -410,11 +419,12 @@ export default {
     },
     // 切换部门
     handleNodeClick(data) {
-      if (data.pid !== 0) {
-        this.query.deptId = null
-      } else {
-        this.query.deptId = data.id
-      }
+      this.query.deptId = data.id || undefined
+      // if (data.pid !== 0) {
+      //   this.query.deptId = null
+      // } else {
+      //   this.query.deptId = data.id
+      // }
       this.crud.toQuery()
     },
     // 改变状态
