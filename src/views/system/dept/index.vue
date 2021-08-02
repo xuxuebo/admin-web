@@ -161,7 +161,7 @@ export default {
       }
     },
     getSupDepts(id) {
-      crudDept.getDeptSuperior(id).then(res => {
+      crudDept.getDeptSuperior([id]).then(res => {
         const date = res.content
         this.buildDepts(date)
         this.depts = date

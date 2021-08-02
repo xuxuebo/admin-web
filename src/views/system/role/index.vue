@@ -459,7 +459,7 @@ export default {
       depts.forEach(dept => {
         ids.push(dept.id);
       });
-      getDeptSuperior(ids).then(res => {
+      getDeptSuperior([ids]).then(res => {
         const date = res.content;
         this.buildDepts(date);
         this.depts = date;
