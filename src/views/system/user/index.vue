@@ -384,8 +384,9 @@ export default {
         })
       })
     },
+    // 系统管理>用户管理>编辑：数据格式修改为数组
     getSupDepts(deptId) {
-      getDeptSuperior(deptId).then(res => {
+      getDeptSuperior([deptId]).then(res => {
         const date = res.content
         this.buildDepts(date)
         this.depts = date
