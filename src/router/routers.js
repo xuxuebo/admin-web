@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '../layout/index'
+// import newSignIn from '../layout/index'
 
 Vue.use(Router)
 
@@ -58,6 +59,20 @@ export const constantRouterMap = [
       }
     ]
   }
+  // {
+  //   path: '/newSignIn',
+  //   component: newSignIn,
+  //   hidden: true,
+  //   redirect: 'noredirect',
+  //   children: [
+  //     {
+  //       path: 'center',
+  //       component: (resolve) => require(['@/views/system/user/center'], resolve),
+  //       name: '新建签到',
+  //       meta: { title: '新建签到' }
+  //     }
+  //   ]
+  // }
 ]
 
 export default new Router({
