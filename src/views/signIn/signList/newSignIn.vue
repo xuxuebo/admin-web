@@ -11,7 +11,7 @@
       :model="form"
       label-width="120px"
     >
-      <el-form-item class="w_50" label="主题">
+      <el-form-item class="w_40" label="主题">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
       <el-form-item label="签到模式">
