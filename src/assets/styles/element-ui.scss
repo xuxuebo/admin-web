@@ -120,3 +120,11 @@
   background-color: #ffffff;
   border-color: #30b08f;
 }
+
+// 多选框
+.select_block {
+  .el-checkbox {
+    display: block;
+    line-height: 24px;
+  }
+}

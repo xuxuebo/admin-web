@@ -58,21 +58,27 @@ export const constantRouterMap = [
         meta: { title: '个人中心' }
       }
     ]
+  },
+  {
+    path: '/newSign',
+    component: Layout,
+    hidden: true,
+    redirect: 'editSign',
+    children: [
+      {
+        path: 'editSign',
+        component: (resolve) => require(['@/views/signIn/signList/newSignIn'], resolve),
+        name: 'newSignIn',
+        meta: { title: '新建签到' }
+      },
+      {
+        path: 'newPlace',
+        component: (resolve) => require(['@/views/signIn/signList/newPlace'], resolve),
+        name: 'newPlace',
+        meta: { title: '新增签到地点' }
+      }
+    ]
   }
-  // {
-  //   path: '/newSignIn',
-  //   component: newSignIn,
-  //   hidden: true,
-  //   redirect: 'noredirect',
-  //   children: [
-  //     {
-  //       path: 'center',
-  //       component: (resolve) => require(['@/views/system/user/center'], resolve),
-  //       name: '新建签到',
-  //       meta: { title: '新建签到' }
-  //     }
-  //   ]
-  // }
 ]
 
 export default new Router({
