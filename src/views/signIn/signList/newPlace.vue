@@ -25,7 +25,7 @@
     <button v-show="false" id="start">开始选点</button>
     <button v-show="false" id="stop">关闭选点</button>
     <p>打卡地点：{{ place || "" }}</p>
-    <p>经纬度：{{ placeCode || "" }}</p>
+    <!-- <p>经纬度：{{ placeCode || "" }}</p> -->
     <div>
       允许打卡范围：
       <el-select v-model="value" placeholder="请选择范围">

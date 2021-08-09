@@ -146,3 +146,14 @@
 .w_100 {
   width: 100%;
 }
+
+// 去除高德地图水印
+.amap-logo {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+.amap-copyright {
+  display: none !important;
+  visibility: hidden !important;
+}
