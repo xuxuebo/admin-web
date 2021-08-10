@@ -8,9 +8,14 @@
       <p :class="{ blue: active === 2 }" @click="active = 2">未开始（20）</p>
       <p :class="{ blue: active === 3 }" @click="active = 3">已结束（20）</p>
     </div>
-    <el-button type="primary" icon="el-icon-plus" @click="dialogVisible = true"
+    <el-button
+      type="primary"
+      icon="el-icon-plus"
+      v-if="add === 'true'"
+      @click="dialogVisible = true"
       >新建</el-button
     >
+    <slot name="download"></slot>
     <el-dialog
       title="新建签到"
       :visible.sync="dialogVisible"
@@ -34,7 +39,9 @@
 <script>
 export default {
   name: "",
-  components: {},
+  props: {
+    add: String
+  },
   data() {
     return {
       active: 0,
@@ -44,7 +51,7 @@ export default {
   mounted() {},
   methods: {
     toSignIn() {
-      this.$router.push('/newSign/editSign')
+      this.$router.push("/newSign/editSign");
     },
     handleClose() {
       this.dialogVisible = false;

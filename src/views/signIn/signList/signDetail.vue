@@ -1,12 +1,35 @@
-<!-- 签到 -->
+<!-- 签到详情 -->
 <!-- author: 张小辉 -->
 <template>
   <div v-loading="loading" class="app-content">
-    <search
-      add="true"
-      @updateSearch="updateSearch"
-      @exportList="exportList"
-    ></search>
+    <div class="al-cen title mb-10">
+      <div class="spot"></div>
+      <div>签到信息</div>
+    </div>
+    <header>
+      <div class="al-cen">
+        活动签到 &nbsp;&nbsp;<el-tag type="success" effect="dark" size="mini"
+          ><i class="el-icon-refresh"></i> 循环</el-tag
+        >
+      </div>
+      <div>主题：高等数学</div>
+      <div>创建人：数学统计学院（李老师）</div>
+      <div>创建时间：2021-08-10</div>
+      <div>签到时间：2021-07-13（周二） 16:00 - 16:10</div>
+    </header>
+    <div class="al-cen title">
+      <div class="spot"></div>
+      <div>签到结果</div>
+    </div>
+    <search @updateSearch="updateSearch" @exportList="exportList()">
+      <template #download>
+        <el-button
+          type="primary"
+          icon="el-icon-download"
+          >导出</el-button
+        >
+      </template>
+    </search>
     <el-table
       :data="tableData"
       stripe
@@ -27,19 +50,7 @@
       <el-table-column prop="teacher" label="班级" min-width="100" />
       <el-table-column prop="teacher" label="签到结果" min-width="100" />
       <el-table-column prop="teacher" label="签到地点" min-width="100" />
-      <el-table-column label="操作" align="center" min-width="200">
-        <template slot-scope="scope">
-          <div>
-            <el-button
-              size="mini"
-              type="primary"
-              plain
-              @click.native="toDetail()"
-              >查看详情</el-button
-            >
-          </div>
-        </template>
-      </el-table-column>
+      <el-table-column prop="teacher" label="签到图片" min-width="100" />
     </el-table>
     <el-pagination
       class="page_button"
@@ -80,7 +91,7 @@ export default {
       },
       total: 0,
       pageNum: 1,
-      pageSize: 15
+      pageSize: 10
     };
   },
   computed: {},
@@ -130,9 +141,6 @@ export default {
           downLoadFile(res);
         });
     },
-    toDetail() {
-      this.$router.push("/newSign/signDetail");
-    },
     handleSizeChange(e) {
       this.pageSize = e;
       this.getList();
@@ -144,4 +152,22 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+header {
+  color: #333;
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.title {
+  font-weight: bold;
+  color: #333;
+  .spot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #1890ff;
+    margin-right: 20px;
+  }
+}
+</style>

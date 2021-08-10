@@ -76,6 +76,12 @@ export const constantRouterMap = [
         component: (resolve) => require(['@/views/signIn/signList/newPlace'], resolve),
         name: 'newPlace',
         meta: { title: '新增签到地点' }
+      },
+      {
+        path: 'signDetail',
+        component: (resolve) => require(['@/views/signIn/signList/signDetail'], resolve),
+        name: 'signDetail',
+        meta: { title: '签到详情' }
       }
     ]
   }

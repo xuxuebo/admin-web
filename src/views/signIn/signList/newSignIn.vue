@@ -12,15 +12,15 @@
       label-width="120px"
     >
       <el-form-item class="w_40" label="主题">
-        <el-input v-model="form.title"></el-input>
+        <el-input placeholder="请输入主题" v-model="form.title"></el-input>
       </el-form-item>
       <el-form-item label="签到模式">
-        <el-radio-group v-model="form.resource">
+        <el-radio-group v-model="form.mode">
           <el-radio label="定位签到"></el-radio>
           <el-radio label="二维码签到"></el-radio>
         </el-radio-group>
         <!-- 签到模式-定位签到 -->
-        <div v-if="form.resource === '定位签到'">
+        <div v-if="form.mode === '定位签到'">
           <el-form-item label="签到条件">
             <el-radio-group v-model="form.condition">
               <el-radio label="设定范围内打卡"></el-radio>
@@ -59,12 +59,28 @@
                 <el-checkbox label="与活动宣传照合照" name="type"></el-checkbox>
               </el-radio-group>
             </el-form-item>
+            <div class="al-cen mb-20" v-show="newAddPhoto">
+              <el-input
+                style="width:25%;margin-right:20px;"
+                placeholder="请输入拍照要求"
+                v-model="newAddPhotoInfo"
+                clearable
+              >
+              </el-input>
+              <el-button type="primary" icon="el-icon-check" circle></el-button>
+              <el-button
+                icon="el-icon-close"
+                circle
+                @click="newAddPhoto = false"
+              ></el-button>
+            </div>
             <el-button
               class="w_30"
               type="primary"
               icon="el-icon-plus"
               plain
               round
+              @click="newAddPhoto = true"
             >
               新增拍照要求
             </el-button>
@@ -72,10 +88,20 @@
         </div>
       </el-form-item>
       <el-form-item label="签到频次">
-        <el-radio-group v-model="form.resource">
+        <el-radio-group v-model="form.rate">
           <el-radio label="单次签到"></el-radio>
           <el-radio label="循环签到"></el-radio>
         </el-radio-group>
+      </el-form-item>
+      <el-form-item label="签到频率" v-if="form.rate === '循环签到'">
+        <el-checkbox-group v-model="form.frequency" size="small">
+          <el-checkbox-button
+            v-for="(item, index) in week"
+            :label="item"
+            :key="index"
+            >{{ item }}</el-checkbox-button
+          >
+        </el-checkbox-group>
       </el-form-item>
       <el-form-item label="签到起止日期">
         <el-date-picker
@@ -128,18 +154,22 @@ export default {
   components: {},
   data() {
     return {
+      newAddPhoto: false, // 新增拍照要求是否显示
+      newAddPhotoInfo: "", // 新增拍照要求
       labelPosition: "left",
       form: {
         title: "", // 主题
-        resource: "定位签到", // 签到模式
         condition: "", // 签到条件
-        photo: "是", // 签到时进行拍照-是否
+        photo: "", // 签到时进行拍照-是否
+        mode: "", // 签到模式
         rate: "", // 签到频次
+        frequency: [], // 签到频率
         date1: "", // 签到起止日期
         date2: "", // 签到时间段
         photoRequire: [], // 拍照要求
         people: [] // 签到人员
-      }
+      },
+      week: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
     };
   },
   computed: {},
