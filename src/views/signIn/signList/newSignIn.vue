@@ -130,7 +130,7 @@
           <el-checkbox label="中安创谷A3栋" name="type"></el-checkbox>
           <el-checkbox label="中安创谷A4栋" name="type"></el-checkbox>
         </el-checkbox-group>
-        <el-button class="w_30" type="primary" icon="el-icon-plus" plain round>
+        <el-button class="w_30" type="primary" icon="el-icon-plus" plain round @click="$router.push('/newSign/addPeople')">
           新增签到人员
         </el-button>
       </el-form-item>

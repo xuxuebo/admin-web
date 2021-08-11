@@ -34,7 +34,7 @@
               size="mini"
               type="primary"
               plain
-              @click.native="toDetail()"
+              @click.native="toDetail(scope.row.stuNo)"
               >查看详情</el-button
             >
           </div>
