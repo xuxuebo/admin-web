@@ -8,24 +8,44 @@
     </div>
     <header>
       <div class="al-cen">
-        活动签到 &nbsp;&nbsp;<el-tag type="success" effect="dark" size="mini"
-          ><i class="el-icon-refresh"></i> 循环</el-tag
+        {{
+          info.signType == 0
+            ? "活动签到"
+            : info.signType == 1
+            ? "返校签到"
+            : info.signType == 2
+            ? "疫情打卡签到"
+            : info.signType == 3
+            ? "团建签到"
+            : info.signType == 4
+            ? "班会签到"
+            : ""
+        }}
+        &nbsp;&nbsp;
+        <el-tag effect="dark" size="mini" v-if="info.frequencyType == 0">
+          <i class="el-icon-refresh-left"></i> 单次</el-tag
+        >
+        <el-tag
+          type="success"
+          effect="dark"
+          size="mini"
+          v-if="info.frequencyType == 1"
+        >
+          <i class="el-icon-refresh"></i> 循环</el-tag
         >
       </div>
-      <div>主题：高等数学</div>
-      <div>创建人：数学统计学院（李老师）</div>
-      <div>创建时间：2021-08-10</div>
-      <div>签到时间：2021-07-13（周二） 16:00 - 16:10</div>
+      <div>主题：{{ info.theme || "" }}</div>
+      <div>创建人：{{ info.createdBy || "" }}</div>
+      <div>创建时间：{{ info.createdTime || "" }}</div>
+      <div>签到时间：{{ info.startDate || "" }} ~ {{ info.endDate || "" }}</div>
     </header>
     <div class="al-cen title">
       <div class="spot"></div>
       <div>签到结果</div>
     </div>
-    <search @updateSearch="updateSearch" @exportList="exportList()">
+    <search @updateSearch="getList">
       <template #download>
-        <el-button
-          type="primary"
-          icon="el-icon-download"
+        <el-button type="primary" icon="el-icon-download" @click="exportList()"
           >导出</el-button
         >
       </template>
@@ -43,99 +63,201 @@
         fontSize: '14px'
       }"
     >
-      <el-table-column prop="courseCode" label="姓名" min-width="100" />
-      <el-table-column prop="courseName" label="学号" min-width="100" />
-      <el-table-column prop="teacher" label="学院" min-width="100" />
-      <el-table-column prop="teacher" label="专业" min-width="100" />
-      <el-table-column prop="teacher" label="班级" min-width="100" />
-      <el-table-column prop="teacher" label="签到结果" min-width="100" />
-      <el-table-column prop="teacher" label="签到地点" min-width="100" />
-      <el-table-column prop="teacher" label="签到图片" min-width="100" />
+      <el-table-column
+        prop="stuName"
+        label="姓名"
+        align="center"
+        min-width="100"
+      />
+      <el-table-column
+        prop="userId"
+        label="学号"
+        align="center"
+        min-width="100"
+      />
+      <el-table-column
+        prop="college"
+        label="学院"
+        align="center"
+        min-width="100"
+      />
+      <el-table-column
+        prop="major"
+        label="专业"
+        align="center"
+        min-width="100"
+      />
+      <el-table-column
+        prop="className"
+        label="班级"
+        align="center"
+        min-width="100"
+      />
+      <el-table-column label="签到结果" align="center" min-width="100">
+        <template slot-scope="scope">
+          <div>
+            {{
+              scope.row.signInResult == 1
+                ? "正常签到"
+                : scope.row.signInResult == 2
+                ? "未签到"
+                : scope.row.signInResult == 3
+                ? "已请假"
+                : ""
+            }}
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="location"
+        label="签到地点"
+        align="center"
+        min-width="100"
+      />
+      <el-table-column
+        prop="picture"
+        label="签到图片"
+        align="center"
+        min-width="100"
+      />
+      <el-table-column label="操作" align="center" min-width="200">
+        <template slot-scope="scope">
+          <div class="button" @click="showDetail(scope.row)">
+            查看详情
+            <!-- <el-button
+              size="mini"
+              type="primary"
+              plain
+              @click.native="showDetail(scope.row)"
+              >查看详情</el-button
+            > -->
+          </div>
+        </template>
+      </el-table-column>
     </el-table>
-    <el-pagination
-      class="page_button"
-      background
-      :page-size="pageSize"
-      layout="total, sizes, prev, pager, next"
-      :total="total"
-      :page-sizes="[10, 15, 20, 50, 100]"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+    <div class="flex just-right">
+      <el-pagination
+        class="page_button"
+        background
+        :page-size="pageSize"
+        layout="total, sizes, prev, pager, next"
+        :total="total"
+        :page-sizes="[10, 15, 20, 50, 100]"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination>
+    </div>
+    <el-dialog
+      title="查看详情"
+      :visible.sync="dialogVisible"
+      width="40%"
+      :before-close="handleClose"
     >
-    </el-pagination>
+      <p>姓名：{{ detail.stuName || "" }}</p>
+      <p>学号：{{ detail.userId || "" }}</p>
+      <p>学院：{{ detail.college || "" }}</p>
+      <p>专业：{{ detail.major || "" }}</p>
+      <p>班级：{{ detail.className || "" }}</p>
+      <p>
+        签到结果：{{
+          detail.signInResult == 1
+            ? "正常签到"
+            : detail.signInResult == 2
+            ? "未签到"
+            : detail.signInResult == 3
+            ? "已请假"
+            : "" || ""
+        }}
+      </p>
+      <p>签到地点：{{ detail.location || "" }}</p>
+      <div class="flex">
+        签到图片：
+        <el-image
+          style="width: 100px; height: 100px"
+          :src="url"
+          :preview-src-list="srcList"
+        >
+        </el-image>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import api from "@/api/lesson/myLesson";
+import api from "@/api/signIn/index";
 // import download from "@/api/index";
 import { downLoadFile } from "@/utils/file";
-import search from "../component/search.vue";
+import search from "../component/searchDetail.vue";
 export default {
   name: "",
   components: { search },
   data() {
     return {
       loading: false,
-      tableData: [{}],
-      screen: {
-        date: "", // 日期
-        college: "", // 学院
-        stuNo: "", // 学号
-        class: "", // 班级
-        grade: "", // 年级
-        workTime: "", // 考勤时间
-        status: "", // 考勤状态
-        courseId: "", // 课程号
-        mode: "" // 模式
-      },
+      info: {},
+      detail: {},
+      dialogVisible: false,
+      tableData: [],
       total: 0,
+      signInResult: 0,
+      url:
+        "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
+      srcList: [
+        "https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg"
+      ],
       pageNum: 1,
       pageSize: 10
     };
   },
   computed: {},
   watch: {},
-  mounted() {},
+  mounted() {
+    this.getList();
+  },
   methods: {
-    // 更新搜索项
-    updateSearch(data) {
-      this.screen = data;
-      //   this.getList();
-    },
-    getList() {
+    getList(e) {
+      this.signInResult = e;
       this.loading = true;
       api
-        .getList({
-          unitCode: this.screen.college || undefined,
-          courseId: this.screen.courseId || undefined,
-          checkInStatus: this.screen.status || undefined,
-          studentId: this.screen.stuNo || undefined,
-          startDate: this.screen.date[0] || undefined,
-          endDate: this.screen.date[1] || undefined,
+        .getSignInInformation({
+          id: this.$route.query.id || undefined
+        })
+        .then(res => {
+          this.info = res.data;
+        });
+      api
+        .getDeatil({
+          signInResult: e,
+          id: this.$route.query.id || undefined,
+          isPhoto: this.$route.query.isPhoto || undefined,
           pageNum: this.pageNum,
           pageSize: this.pageSize
         })
         .then(res => {
           this.loading = false;
-          this.tableData = res.list;
-          this.total = res.total;
+          this.tableData = res.data.list;
+          this.total = res.data.total;
         })
         .catch(() => {
           this.loading = false;
         });
     },
+    // 查看详情
+    showDetail(e) {
+      this.dialogVisible = true;
+      this.detail = e;
+    },
+    // 关闭弹窗
+    handleClose() {
+      this.dialogVisible = false;
+    },
     exportList() {
       api
         .exportList({
-          unitCode: this.screen.college || undefined,
-          courseId: this.screen.courseId || undefined,
-          checkInStatus: this.screen.status || undefined,
-          studentId: this.screen.stuNo || undefined,
-          startDate: this.screen.date[0] || undefined,
-          endDate: this.screen.date[1] || undefined,
-          pageNum: this.pageNum,
-          pageSize: this.pageSize
+          signInResult: this.signInResult, // 签到结果
+          id: this.$route.query.id || undefined,
+          isPhoto: this.$route.query.isPhoto || undefined
         })
         .then(res => {
           downLoadFile(res);
@@ -169,5 +291,12 @@ header {
     background-color: #1890ff;
     margin-right: 20px;
   }
+}
+.button {
+  cursor: pointer;
+}
+.button:hover {
+  color: #1890ff;
+  // transition: all linear 0.3s;
 }
 </style>

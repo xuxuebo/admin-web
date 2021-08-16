@@ -31,7 +31,7 @@
     <!-- <p>经纬度：{{ placeCode || "" }}</p> -->
     <div>
       允许打卡范围：
-      <el-select v-model="value" placeholder="请选择范围">
+      <el-select v-model="distance" placeholder="请选择范围">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -42,23 +42,30 @@
       </el-select>
     </div>
     <div class="al-cen mt-20">
-      <el-button class="w_10" type="primary" icon="el-icon-check"
+      <el-button
+        class="w_10"
+        type="primary"
+        icon="el-icon-check"
+        @click="submitPlace()"
         >确定</el-button
       >
-      <el-button class="w_10" icon="el-icon-close">取消</el-button>
+      <el-button class="w_10" icon="el-icon-close" @click="$router.back()"
+        >取消</el-button
+      >
     </div>
   </div>
 </template>
 
 <script>
+import api from "@/api/signIn/index";
 export default {
   name: "",
   components: {},
   data() {
     return {
       search: "",
-      place: "",
-      placeCode: "",
+      place: "", // 地点
+      placeCode: "", // 经纬度
       options: [
         {
           value: "350",
@@ -117,7 +124,7 @@ export default {
           label: "1000米"
         }
       ],
-      value: "",
+      distance: "500",
       restaurants: [],
       map: null
     };
@@ -128,6 +135,20 @@ export default {
     this.drawMap();
   },
   methods: {
+    // 新增地点
+    submitPlace() {
+      // console.log(this.placeCode);
+      api
+        .addSignInLocations({
+          longitude: this.placeCode.lng, // 经度
+          latitude: this.placeCode.lat, // 纬度
+          name: this.place, // 位置名称
+          signRange: this.distance // 签到范围（米）
+        })
+        .then(res => {
+          this.$message.success(res.message);
+        });
+    },
     querySearch(queryString, cb) {
       cb(this.restaurants);
     },
@@ -198,7 +219,6 @@ export default {
               });
             });
           }
-          // console.log(result);
         });
       });
     },

@@ -15,9 +15,10 @@
         :data="data"
         show-checkbox
         node-key="id"
-        :default-expanded-keys="[]"
-        :default-checked-keys="[]"
         :props="defaultProps"
+        accordion
+        :expand-on-click-node="false"
+        @node-click="clickTree"
       >
       </el-tree>
     </article>
@@ -76,23 +77,29 @@
       </el-pagination>
     </article>
     <article class="right f-3">
-      <div class="title mb-10">17动漫1班</div>
-      <section class="flex f-wrap">
-        <div
-          class="card center f-column"
-          v-for="(item, index) in 20"
-          :key="index"
-        >
-          <i class="delete el-icon-circle-close"></i>
-          <div>张三</div>
-          <div class="mt-5">01010</div>
-        </div>
+      <div class="title mb-10">已勾选签到人员</div>
+      <section>
+        <transition-group name="list-complete" tag="div" class="flex f-wrap">
+          <div
+            class="card center f-column"
+            v-for="(item, index) in cardList"
+            :key="index"
+          >
+            <i
+              class="delete el-icon-circle-close"
+              @click="reduceCard(index)"
+            ></i>
+            <div>{{ item.name }}</div>
+            <div class="mt-5">{{ item.stuNo }}</div>
+          </div>
+        </transition-group>
       </section>
     </article>
   </div>
 </template>
 
 <script>
+import api from "@/api/signIn/index";
 export default {
   name: "",
   components: {},
@@ -100,16 +107,6 @@ export default {
     return {
       search: "",
       data: [
-        {
-          id: 1,
-          label: "一级 1",
-          children: []
-        },
-        {
-          id: 2,
-          label: "一级 2",
-          children: []
-        },
         {
           id: 3,
           label: "一级 3",
@@ -129,7 +126,25 @@ export default {
         children: "children",
         label: "label"
       },
-      tableData: [{}],
+      cardList: [
+        {
+          name: "张三",
+          stuNo: "01010"
+        },
+        {
+          name: "李四",
+          stuNo: "01010"
+        },
+        {
+          name: "王五",
+          stuNo: "01010"
+        },
+        {
+          name: "赵六",
+          stuNo: "01010"
+        }
+      ],
+      tableData: [],
       total: 0,
       pageNum: 1,
       pageSize: 10
@@ -137,8 +152,36 @@ export default {
   },
   computed: {},
   watch: {},
-  mounted() {},
+  mounted() {
+    this.getUserList();
+  },
   methods: {
+    clickTree(e) {
+      console.log(e);
+      api
+        .getUser({
+          pid: e.id
+        })
+        .then(res => {
+          // this.$set(this.data, 0, res.content);
+          // this.data[0].children = res.content;
+          this.data = res.content.map(function(obj) {
+            if (obj.hasChildren) {
+              obj.children = null;
+            }
+            return obj;
+          });
+        });
+    },
+    // 获取组织机构
+    getUserList() {
+      api.getUser().then(res => {
+        this.data = res.content;
+      });
+    },
+    reduceCard(index) {
+      this.cardList.splice(index, 1);
+    },
     handleSizeChange(e) {
       this.pageSize = e;
     },
@@ -172,11 +215,14 @@ export default {
   .right {
     color: #333;
     padding: 20px 10px;
+    height: calc(100vh - 150px);
+    overflow-y: scroll;
     .title {
       font-weight: bold;
       margin: 10px 0 0 10px;
     }
     .card {
+      transition: all 1s;
       font-size: 14px;
       width: 130px;
       height: 60px;
@@ -185,6 +231,7 @@ export default {
       margin: 10px;
       position: relative;
       .delete {
+        color: #999;
         font-size: 18px;
         position: absolute;
         top: -9px;
@@ -192,8 +239,16 @@ export default {
         cursor: pointer;
       }
       .delete:hover {
-        color: #1890ff;
+        color: #fc4a04;
       }
+    }
+    .list-complete-enter,
+    .list-complete-leave-to {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    .list-complete-leave-active {
+      position: absolute;
     }
   }
 }

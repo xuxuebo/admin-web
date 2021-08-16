@@ -1,101 +1,113 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Layout from '../layout/index'
+import Vue from "vue";
+import Router from "vue-router";
+import Layout from "../layout/index";
 // import newSignIn from '../layout/index'
 
-Vue.use(Router)
+Vue.use(Router);
 
 export const constantRouterMap = [
-  { path: '/login',
-    meta: { title: '登录', noCache: true },
-    component: (resolve) => require(['@/views/login'], resolve),
+  {
+    path: "/login",
+    meta: { title: "登录", noCache: true },
+    component: resolve => require(["@/views/login"], resolve),
     hidden: true
   },
   {
-    path: '/404',
-    component: (resolve) => require(['@/views/features/404'], resolve),
+    path: "/404",
+    component: resolve => require(["@/views/features/404"], resolve),
     hidden: true
   },
   {
-    path: '/401',
-    component: (resolve) => require(['@/views/features/401'], resolve),
+    path: "/401",
+    component: resolve => require(["@/views/features/401"], resolve),
     hidden: true
   },
   {
-    path: '/redirect',
+    path: "/redirect",
     component: Layout,
     hidden: true,
     children: [
       {
-        path: '/redirect/:path*',
-        component: (resolve) => require(['@/views/features/redirect'], resolve)
+        path: "/redirect/:path*",
+        component: resolve => require(["@/views/features/redirect"], resolve)
       }
     ]
   },
   {
-    path: '/',
+    path: "/",
     component: Layout,
-    redirect: '/dashboard',
+    redirect: "/dashboard",
     children: [
       {
-        path: 'dashboard',
-        component: (resolve) => require(['@/views/home'], resolve),
-        name: 'Dashboard',
-        meta: { title: '首页', icon: 'index', affix: true, noCache: true }
+        path: "dashboard",
+        component: resolve => require(["@/views/home"], resolve),
+        name: "Dashboard",
+        meta: { title: "首页", icon: "index", affix: true, noCache: true }
       }
     ]
   },
   {
-    path: '/user',
-    component: Layout,
-    hidden: true,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: 'center',
-        component: (resolve) => require(['@/views/system/user/center'], resolve),
-        name: '个人中心',
-        meta: { title: '个人中心' }
-      }
-    ]
-  },
-  {
-    path: '/newSign',
+    path: "/user",
     component: Layout,
     hidden: true,
-    redirect: 'editSign',
+    redirect: "noredirect",
     children: [
       {
-        path: 'editSign',
-        component: (resolve) => require(['@/views/signIn/signList/newSignIn'], resolve),
-        name: 'newSignIn',
-        meta: { title: '新建签到' }
-      },
-      {
-        path: 'newPlace',
-        component: (resolve) => require(['@/views/signIn/signList/newPlace'], resolve),
-        name: 'newPlace',
-        meta: { title: '新增签到地点' }
-      },
-      {
-        path: 'signDetail',
-        component: (resolve) => require(['@/views/signIn/signList/signDetail'], resolve),
-        name: 'signDetail',
-        meta: { title: '签到详情' }
-      },
-      {
-        path: 'addPeople',
-        component: (resolve) => require(['@/views/signIn/signList/addPeople'], resolve),
-        name: 'addPeople',
-        meta: { title: '新增签到人员' }
+        path: "center",
+        component: resolve => require(["@/views/system/user/center"], resolve),
+        name: "个人中心",
+        meta: { title: "个人中心" }
       }
+    ]
+  },
+  {
+    path: "/newSign",
+    component: Layout,
+    hidden: true,
+    redirect: "editSign",
+    children: [
+      {
+        path: "editSign",
+        component: resolve =>
+          require(["@/views/signIn/signList/newSignIn"], resolve),
+        name: "newSignIn",
+        meta: { title: "新建签到" }
+      },
+      {
+        path: "newPlace",
+        component: resolve =>
+          require(["@/views/signIn/signList/newPlace"], resolve),
+        name: "newPlace",
+        meta: { title: "新增签到地点" }
+      },
+      {
+        path: "signDetail",
+        component: resolve =>
+          require(["@/views/signIn/signList/signDetail"], resolve),
+        name: "signDetail",
+        meta: { title: "签到详情" }
+      },
+      {
+        path: "addPeople",
+        component: resolve =>
+          require(["@/views/signIn/signList/addPeople"], resolve),
+        name: "addPeople",
+        meta: { title: "新增签到人员" }
+      },
+      // {
+      //   path: "outPage",
+      //   component: resolve =>
+      //     require(["@/views/signIn/signList/outPage"], resolve),
+      //   name: "outPage",
+      //   meta: { title: "外部页面" }
+      // }
     ]
   }
-]
+];
 
 export default new Router({
-  mode: 'hash',
+  mode: "hash",
   // mode: 'history',
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRouterMap
-})
+});

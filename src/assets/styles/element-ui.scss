@@ -80,24 +80,24 @@
 
 // 分页按钮选中项颜色
 .el-pagination.is-background .el-pager li:not(.disabled).active {
-  background-color: #1890ff;
+  background-color: #30b08f;
 }
 .el-date-table td.start-date span,
 .el-date-table td.end-date span {
-  background-color: #1890ff;
+  background-color: #30b08f;
 }
 // .el-date-table td.today span{
-//   color: #1890ff;
+//   color: #30B08F;
 // }
 // .el-date-table td.available:hover{
-//   color: #1890ff;
+//   color: #30B08F;
 // }
 // .el-picker-panel__shortcut:hover{
-//   color: #1890ff;
+//   color: #30B08F;
 // }
 .el-button--success {
-  background-color: #1890ff;
-  border-color: #1890ff;
+  background-color: #30b08f;
+  border-color: #30b08f;
 }
 .el-button--success:hover,
 .el-button--success:focus {
@@ -106,8 +106,8 @@
 }
 .el-button--success.is-plain:hover,
 .el-button--success.is-plain:focus {
-  background-color: #1890ff;
-  border-color: #1890ff;
+  background-color: #30b08f;
+  border-color: #30b08f;
 }
 .el-button--success.is-plain {
   color: #777;
@@ -116,9 +116,9 @@
 }
 .el-button--success.is-plain:hover,
 .el-button--success.is-plain:focus {
-  color: #1890ff;
+  color: #30b08f;
   background-color: #ffffff;
-  border-color: #1890ff;
+  border-color: #30b08f;
 }
 
 // 多选框
